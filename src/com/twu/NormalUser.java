@@ -26,14 +26,14 @@ public class NormalUser extends User {
 
         System.out.println("请输入要进行投票热搜事件名称:");
         Scanner scanner = new Scanner(System.in);
-        String hotSearchName = scanner.next();
+        String description = scanner.next();
 
         System.out.println("请输入你带投票数目：");
         Scanner scanner1 = new Scanner(System.in);
         int hotDegree = Integer.parseInt(scanner1.next());
 
         String sqlFormat = "update hot_search set hot_degree=hot_degree+%d where hot_search.description=%s";
-        sql = String.format(sqlFormat, hotDegree, hotSearchName);
+        sql = String.format(sqlFormat, hotDegree, description);
 
         connector.updateDataAfterVoteOrPurchase(sql);
     }
@@ -41,7 +41,7 @@ public class NormalUser extends User {
     public void purchaseHotSearch() {
         System.out.println("请输入购买的热搜事件名称:");
         Scanner scanner = new Scanner(System.in);
-        String hotSearchName = scanner.next();
+        String description = scanner.next();
 
         System.out.println("请输入需要购买的热度值：");
         Scanner scanner1 = new Scanner(System.in);
