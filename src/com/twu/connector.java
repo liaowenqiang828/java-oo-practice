@@ -57,6 +57,12 @@ public class connector {
         return hotSearchList;
     }
 
+    public void updateDataAfterVoteOrPurchase(String sql) throws SQLException {
+        Connection connection = getConnect();
+        Statement statement = getStatement(connection);
+        updateSQL(statement, sql);
+    }
+
     public Connection getConnect() throws SQLException {
         try {
             // 加载驱动
