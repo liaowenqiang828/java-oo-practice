@@ -1,5 +1,6 @@
 package com.twu;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -19,7 +20,10 @@ public class NormalUser extends User {
         return super.addHotSearch();
     }
 
-    public void voteHotSearch() {
+    public void voteHotSearch() throws SQLException {
+        connector connector = new connector();
+        String sql;
+
         System.out.println("请输入要进行投票热搜事件名称:");
         Scanner scanner = new Scanner(System.in);
         String hotSearchName = scanner.next();
@@ -28,7 +32,10 @@ public class NormalUser extends User {
         Scanner scanner1 = new Scanner(System.in);
         int hotDegree = Integer.parseInt(scanner1.next());
 
+        String sqlFormat = "update hot_search set hot_degree=hot_degree+%d where hot_search.description=%s";
+        sql = String.format(sqlFormat, hotDegree, hotSearchName);
 
+        connector.updateDataAfterVoteOrPurchase(sql);
     }
 
     public void purchaseHotSearch() {
