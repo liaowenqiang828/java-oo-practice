@@ -10,4 +10,9 @@ public class HotSearchItem {
         this.description = description;
         this.hotDegree = hotDegree;
     }
+
+    @Override
+    public String toString() {
+        return order + description + hotDegree;
+    }
 }

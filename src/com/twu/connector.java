@@ -1,17 +1,60 @@
 package com.twu;
 
+import org.omg.Messaging.SyncScopeHelper;
+
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.stream.StreamSupport;
 
 public class connector {
     private static final String URL = "jdbc:mysql://127.0.0.1:3306/source_data";
     private static final String NAME = "root";
     private static final String PASSWORD = "liaowenqiang";
 
-    public static void main(String[] args) throws SQLException {
-        connector connector = new connector();
-        Connection connection = connector.getConnect();
-        Statement statement = connector.getStatement(connection);
-        ResultSet resultSet = connector.executeSQL(statement);
+//    public static void main(String[] args) throws SQLException {
+//        connector connector = new connector();
+//        Connection connection = connector.getConnect();
+//        Statement statement = connector.getStatement(connection);
+//        ResultSet resultSet = connector.executeSQL(statement);
+//
+//        ArrayList<HotSearchItem> hotSearchList = new ArrayList<>();
+//
+//        while (resultSet.next()) {
+//            hotSearchList.add(new HotSearchItem(resultSet.getInt(1), resultSet.getString(2), resultSet.getInt(3)));
+//            }
+//
+//        hotSearchList.stream().forEach(item -> System.out.println(item.toString()));
+////        try {
+////            Class.forName("com.mysql.jdbc.Driver");
+////        } catch (ClassNotFoundException e) {
+////            e.printStackTrace();
+////        }
+////
+////        String sql = "select * from hot_search";
+////
+////        try (Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1/source_data?characterEncoding=utf8&useSSL=false",
+////                "root", "liaowenqiang");
+////             Statement statement = connection.createStatement())
+////        {
+////            ResultSet resultSet = statement.executeQuery(sql);
+////            while (resultSet.next()) {
+////                System.out.println(resultSet.getString(2));
+////            }
+////        } catch (SQLException e) {
+////            e.printStackTrace();
+////        }
+//    }
+    public ArrayList<HotSearchItem> getSourceDataArrayList() throws SQLException {
+        ArrayList<HotSearchItem> hotSearchList = new ArrayList<>();
+
+        Connection connection = getConnect();
+        Statement statement = getStatement(connection);
+        ResultSet resultSet = executeSQL(statement);
+
+        while (resultSet.next()) {
+            hotSearchList.add(new HotSearchItem(resultSet.getInt(1), resultSet.getString(2), resultSet.getInt(3)));
+        }
+        return hotSearchList;
     }
 
     public Connection getConnect() throws SQLException {
@@ -23,11 +66,11 @@ public class connector {
         }
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1/source_data?characterEncoding=utf8&useSSL=true" +
-                    "user=root&password=liaowenqiang");
+            connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1/source_data?characterEncoding=utf8&useSSL=false",
+                    "root", "liaowenqiang");
             System.out.println("数据库连接成功");
         } catch (SQLException e) {
-            System.out.println("数据库连接失败");
+            e.printStackTrace();
         }
         return connection;
     }
