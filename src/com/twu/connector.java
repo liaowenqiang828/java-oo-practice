@@ -94,4 +94,12 @@ public class connector {
         }
         return rs;
     }
+
+    public void updateSQL(Statement statement, String sql) {
+        try {
+            statement.executeUpdate(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }
