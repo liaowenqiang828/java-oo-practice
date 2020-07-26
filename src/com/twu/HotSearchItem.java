@@ -1,6 +1,6 @@
 package com.twu;
 
-public class HotSearchItem {
+public class HotSearchItem implements Comparable<HotSearchItem>{
     private int order;
     private String description;
     private int hotDegree;
@@ -14,5 +14,14 @@ public class HotSearchItem {
     @Override
     public String toString() {
         return order + description + hotDegree;
+    }
+
+    public int getHotDegree() {
+        return this.hotDegree;
+    }
+
+    @Override
+    public int compareTo(HotSearchItem o) {
+        return o.getHotDegree() - hotDegree;
     }
 }

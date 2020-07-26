@@ -15,12 +15,13 @@ public class Main {
         System.out.println("请按照格式输入用户角色代码：");
         System.out.println("普通用户请输入数字：0， 管理员用户请输入数字：1， 按Enter键结束。");
         Scanner scanner = new Scanner(System.in);
+        String code = scanner.next();
 
-        if (scanner.next() != "0" || scanner.next() != "1") {
+        if (!code.equals("0") || !code.equals("1")) {
             System.out.println("命令输入格式错误，请重新正确输入： ");
         }
 
-        if (scanner.next() == "0") {
+        if (code.equals("0")) {
             System.out.println("进入普通用户操作：");
             NormalUser normalUser = new NormalUser(hotSearchList);
 

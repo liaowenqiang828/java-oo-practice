@@ -1,8 +1,9 @@
 package com.twu;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface HotSearch {
-    ArrayList<String> checkHotSearch();
-    ArrayList<String> addHotSearch();
+    void checkHotSearch() throws SQLException;
+    void addHotSearch();
 }

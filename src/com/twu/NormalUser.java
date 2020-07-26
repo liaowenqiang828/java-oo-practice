@@ -10,15 +10,15 @@ public class NormalUser extends User {
         this.hotSearchList = hotSearchList;
     }
 
-    @Override
-    public ArrayList<String> checkHotSearch() {
-        return super.checkHotSearch();
-    }
-
-    @Override
-    public ArrayList<String> addHotSearch() {
-        return super.addHotSearch();
-    }
+//    @Override
+//    public ArrayList<String> checkHotSearch() {
+//        return super.checkHotSearch();
+//    }
+//
+//    @Override
+//    public ArrayList<String> addHotSearch() {
+//        return super.addHotSearch();
+//    }
 
     public void voteHotSearch() throws SQLException {
         connector connector = new connector();
@@ -32,7 +32,7 @@ public class NormalUser extends User {
         Scanner scanner1 = new Scanner(System.in);
         int hotDegree = Integer.parseInt(scanner1.next());
 
-        String sqlFormat = "update hot_search set hot_degree=hot_degree+%d where hot_search.description=%s";
+        String sqlFormat = "update hot_search set hot_degree=hot_degree+%d where description=\'%s\'";
         sql = String.format(sqlFormat, hotDegree, description);
 
         connector.updateDataAfterVoteOrPurchase(sql);
@@ -50,7 +50,7 @@ public class NormalUser extends User {
         connector connector = new connector();
         String sql;
 
-        String sqlFormat = "insert into hot_search values (%s, %d)";
+        String sqlFormat = "insert into hot_search values (null, \'%s\', %d)";
         sql = String.format(sqlFormat, description, hotDegree);
 
         connector.updateDataAfterVoteOrPurchase(sql);
