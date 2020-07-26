@@ -38,7 +38,7 @@ public class NormalUser extends User {
         connector.updateDataAfterVoteOrPurchase(sql);
     }
 
-    public void purchaseHotSearch() {
+    public void purchaseHotSearch() throws SQLException {
         System.out.println("请输入购买的热搜事件名称:");
         Scanner scanner = new Scanner(System.in);
         String description = scanner.next();
@@ -47,6 +47,12 @@ public class NormalUser extends User {
         Scanner scanner1 = new Scanner(System.in);
         int hotDegree = Integer.parseInt(scanner1.next());
 
+        connector connector = new connector();
+        String sql;
 
+        String sqlFormat = "insert into hot_search values (%s, %d)";
+        sql = String.format(sqlFormat, description, hotDegree);
+
+        connector.updateDataAfterVoteOrPurchase(sql);
     }
 }
