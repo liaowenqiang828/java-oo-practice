@@ -63,6 +63,22 @@ public class Connector {
         updateSQL(statement, sql);
     }
 
+    public boolean getSuperHotSearchByDescription(String sql) throws SQLException {
+        boolean superHotSearch = false;
+        ResultSet resultSet = null;
+        try (Connection connection = getConnect();
+             Statement statement = getStatement(connection))
+        {
+            resultSet = statement.executeQuery(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        while (resultSet.next()) {
+            superHotSearch = resultSet.getBoolean(4);
+        }
+        return superHotSearch;
+    }
+
     public Connection getConnect() throws SQLException {
         try {
             // 加载驱动
