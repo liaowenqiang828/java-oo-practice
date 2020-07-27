@@ -20,6 +20,14 @@ public class HotSearchItem implements Comparable<HotSearchItem>{
         return this.hotDegree;
     }
 
+    public int getOrder() {
+        return this.order;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
     @Override
     public int compareTo(HotSearchItem o) {
         return o.getHotDegree() - hotDegree;

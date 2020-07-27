@@ -5,30 +5,23 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class NormalUser extends User {
-    ArrayList<HotSearchItem> hotSearchList;
-    public NormalUser(ArrayList<HotSearchItem> hotSearchList) {
-        this.hotSearchList = hotSearchList;
+    private int votes;
+    private ArrayList<HotSearchItem> hotSearchList;
+    public NormalUser(int votes, ArrayList<HotSearchItem> hotSearchList) {
+        super(hotSearchList);
+        this.votes = votes;
     }
 
-//    @Override
-//    public ArrayList<String> checkHotSearch() {
-//        return super.checkHotSearch();
-//    }
-//
-//    @Override
-//    public ArrayList<String> addHotSearch() {
-//        return super.addHotSearch();
-//    }
-
     public void voteHotSearch() throws SQLException {
-        connector connector = new connector();
+        Connector connector = new Connector();
         String sql;
 
         System.out.println("请输入要进行投票热搜事件名称:");
         Scanner scanner = new Scanner(System.in);
         String description = scanner.next();
 
-        System.out.println("请输入你带投票数目：");
+        System.out.printf("当前可投票数为： %d\n", this.votes);
+        System.out.println("请输入你的投票数目：");
         Scanner scanner1 = new Scanner(System.in);
         int hotDegree = Integer.parseInt(scanner1.next());
 
@@ -36,6 +29,7 @@ public class NormalUser extends User {
         sql = String.format(sqlFormat, hotDegree, description);
 
         connector.updateDataAfterVoteOrPurchase(sql);
+        this.votes = this.votes - hotDegree;
     }
 
     public void purchaseHotSearch() throws SQLException {
@@ -47,7 +41,7 @@ public class NormalUser extends User {
         Scanner scanner1 = new Scanner(System.in);
         int hotDegree = Integer.parseInt(scanner1.next());
 
-        connector connector = new connector();
+        Connector connector = new Connector();
         String sql;
 
         String sqlFormat = "insert into hot_search values (null, \'%s\', %d)";

@@ -5,5 +5,5 @@ import java.util.ArrayList;
 
 public interface HotSearch {
     void checkHotSearch() throws SQLException;
-    void addHotSearch();
+    void addHotSearch() throws SQLException;
 }

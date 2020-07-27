@@ -7,10 +7,10 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) throws SQLException {
-        connector connector = new connector();
+        Connector connector = new Connector();
 
         ArrayList<HotSearchItem> hotSearchList = connector.getSourceDataArrayList();
-        hotSearchList.stream().forEach(hotSearchItem -> System.out.println(hotSearchItem.toString()));
+//        hotSearchList.stream().forEach(hotSearchItem -> System.out.println(hotSearchItem.toString()));
 
         System.out.println("请按照格式输入用户角色代码：");
         System.out.println("普通用户请输入数字：0， 管理员用户请输入数字：1， 按Enter键结束。");
@@ -23,7 +23,7 @@ public class Main {
 
         if (code.equals("0")) {
             System.out.println("进入普通用户操作：");
-            NormalUser normalUser = new NormalUser(hotSearchList);
+            NormalUser normalUser = new NormalUser(10, hotSearchList);
 
             System.out.println("请输入你要进行的操作的代码，按Enter键结束");
             System.out.println("查看热搜排行榜，请输入： check");
@@ -48,13 +48,31 @@ public class Main {
                     normalUser.addHotSearch();
                     break;
             }
+        } else {
+            System.out.println("进入管理员用户操作：");
+            Administrator administrator = new Administrator(10, hotSearchList);
 
+            System.out.println("请输入你要进行的操作的代码，按Enter键结束");
+            System.out.println("查看热搜排行榜，请输入： check");
+            System.out.println("添加热搜，请输入： add");
+            System.out.println("添加超级热搜，请输入： add super");
 
+            Scanner scanner1 = new Scanner(System.in);
+            String commond1 = scanner1.next();
 
-
+            switch (commond1) {
+                case "check":
+                    administrator.checkHotSearch();
+                    break;
+                case "add":
+                    administrator.addHotSearch();
+                    break;
+                case "add super":
+                    administrator.addSperHotSearch();
+                    break;
+            }
 
 
         }
-
     }
 }
