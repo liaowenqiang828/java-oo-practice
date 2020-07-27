@@ -17,10 +17,6 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         String code = scanner.next();
 
-        if (!code.equals("0") || !code.equals("1")) {
-            System.out.println("命令输入格式错误，请重新正确输入： ");
-        }
-
         if (code.equals("0")) {
             System.out.println("进入普通用户操作：");
             NormalUser normalUser = new NormalUser(10, hotSearchList);
@@ -48,14 +44,14 @@ public class Main {
                     normalUser.addHotSearch();
                     break;
             }
-        } else {
+        } else if (code.equals("1")){
             System.out.println("进入管理员用户操作：");
-            Administrator administrator = new Administrator(10, hotSearchList);
+            Administrator administrator = new Administrator(hotSearchList);
 
             System.out.println("请输入你要进行的操作的代码，按Enter键结束");
             System.out.println("查看热搜排行榜，请输入： check");
             System.out.println("添加热搜，请输入： add");
-            System.out.println("添加超级热搜，请输入： add super");
+            System.out.println("添加超级热搜，请输入： add_super");
 
             Scanner scanner1 = new Scanner(System.in);
             String commond1 = scanner1.next();
@@ -67,12 +63,12 @@ public class Main {
                 case "add":
                     administrator.addHotSearch();
                     break;
-                case "add super":
-                    administrator.addSperHotSearch();
+                case "add_super":
+                    administrator.addSuperHotSearch();
                     break;
             }
-
-
+        } else {
+            System.out.println("命令输入格式错误，请重新正确输入： ");
         }
     }
 }
