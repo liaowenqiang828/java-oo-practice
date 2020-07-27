@@ -70,12 +70,13 @@ public class Connector {
              Statement statement = getStatement(connection))
         {
             resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                superHotSearch = resultSet.getBoolean(4);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        while (resultSet.next()) {
-            superHotSearch = resultSet.getBoolean(4);
-        }
+
         return superHotSearch;
     }
 

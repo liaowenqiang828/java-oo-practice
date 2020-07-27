@@ -13,8 +13,10 @@ public class NormalUser extends User {
     }
 
     public void voteHotSearch() throws SQLException {
-        Connector connector = new Connector();
-        String sql;
+        Connector connectorSelect = new Connector();
+        Connector connectorUpdate = new Connector();
+        String selectSql;
+        String updateSql;
 
         System.out.println("请输入要进行投票热搜事件名称:");
         Scanner scanner = new Scanner(System.in);
@@ -25,10 +27,16 @@ public class NormalUser extends User {
         Scanner scanner1 = new Scanner(System.in);
         int hotDegree = Integer.parseInt(scanner1.next());
 
-        String sqlFormat = "update hot_search set hot_degree=hot_degree+%d where description=\'%s\'";
-        sql = String.format(sqlFormat, hotDegree, description);
+        String sqlFormatForSelect = "select * from hot_search where description=\'%s\'";
+        selectSql = String.format(sqlFormatForSelect, description);
+        boolean isSuperHotSearch = connectorSelect.getSuperHotSearchByDescription(selectSql);
 
-        connector.updateDataAfterVoteOrPurchase(sql);
+        if (isSuperHotSearch) hotDegree = hotDegree * 2;
+
+        String sqlFormatForUpdate = "update hot_search set hot_degree=hot_degree+%d where description=\'%s\'";
+        updateSql = String.format(sqlFormatForUpdate, hotDegree, description);
+
+        connectorUpdate.updateDataAfterVoteOrPurchase(updateSql);
         this.votes = this.votes - hotDegree;
     }
 
